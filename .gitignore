@@ -10,3 +10,29 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+bin
+target
+.svn
+
+#Eclipse project files
+.project
+.classpath
+.settings
+
+#IntelliJ IDEA project files and directories
+*.iml
+*.ipr
+*.iws
+.idea/
+
+#Geany project file
+.geany
+
+#KDevelop project file and directory
+.kdev4/
+*.kdev4
+
+#Build targets
+/target
+*/target
