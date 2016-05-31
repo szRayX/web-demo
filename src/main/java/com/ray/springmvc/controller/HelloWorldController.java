@@ -15,6 +15,6 @@ public class HelloWorldController {
     @RequestMapping("/helloworld")
     public String sayHello(){
         System.out.println("Hello World!");
-        return "helloworld";
+        return "springmvc/helloworld";
     }
 }
