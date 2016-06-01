@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ray.springmvc.dao.CollegeAdmissionMapperAuto">
+
+    <resultMap  id="collegeAdmissionPO" type="com.ray.springmvc.po.CollegeAdmissionPO">
+        <id column="ID" jdbcType="NUMERIC" property="id" />
+        <result column="COLLEGE_ID"  jdbcType="NUMERIC" property="collegeId"></result>
+        <result column="CLASS_TYPE"  jdbcType="VARCHAR" property="classType"></result>
+        <result column="YEAR"  jdbcType="VARCHAR" property="year"></result>
+        <result column="HIGNEST_SCORE"  jdbcType="NUMERIC" property="hignestScore"></result>
+        <result column="AVERAGE_SCORE"  jdbcType="NUMERIC" property="averageScore"></result>
+        <result column="AVERAGE_SCORE_DIFFERENCE"  jdbcType="NUMERIC" property="averageScoreDifference"></result>
+        <result column="SUBMIT_LINE_DIFFERENCE"  jdbcType="NUMERIC" property="submitLineDifference"></result>
+        <result column="LOWEST_SCORE"  jdbcType="NUMERIC" property="lowestScore"></result>
+        <result column="ADMISSION_OFFERS"  jdbcType="NUMERIC" property="admissionOffers"></result>
+        <result column="ADMISSION_TIER"  jdbcType="VARCHAR" property="admissionTier"></result>
+        <result column="ROW_VERSION"  jdbcType="NUMERIC" property="rowVersion"></result>
+        <result column="IS_DELETED"  jdbcType="TINYINT" property="isDeleted"></result>
+        <result column="CREATED_BY"  jdbcType="NUMERIC" property="createdBy"></result>
+        <result column="CREATION_TIME"  jdbcType="TIMESTAMP" property="creationTime"></result>
+        <result column="LAST_UPDATED_BY"  jdbcType="NUMERIC" property="lastUpdatedBy"></result>
+        <result column="LAST_UPDATE_TIME"  jdbcType="TIMESTAMP" property="lastUpdateTime"></result>
+    </resultMap>
+
+    <sql id="entityColumnList">
+    `ID`,`COLLEGE_ID`,`CLASS_TYPE`,`YEAR`,`HIGNEST_SCORE`,`AVERAGE_SCORE`,`AVERAGE_SCORE_DIFFERENCE`,`SUBMIT_LINE_DIFFERENCE`,`LOWEST_SCORE`,`ADMISSION_OFFERS`,`ADMISSION_TIER`,`ROW_VERSION`,`IS_DELETED`,`CREATED_BY`,`CREATION_TIME`,`LAST_UPDATED_BY`,`LAST_UPDATE_TIME`
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO
+            `CEE_COLLEGE_ADMISSION`
+            (
+            <include refid="entityColumnList" />
+            )
+        VALUES
+        (
+        #{ collegeAdmission.id },
+        
+        #{ collegeAdmission.collegeId },
+        #{ collegeAdmission.classType },
+        #{ collegeAdmission.year },
+        #{ collegeAdmission.hignestScore },
+        #{ collegeAdmission.averageScore },
+        #{ collegeAdmission.averageScoreDifference },
+        #{ collegeAdmission.submitLineDifference },
+        #{ collegeAdmission.lowestScore },
+        #{ collegeAdmission.admissionOffers },
+        #{ collegeAdmission.admissionTier },
+        0,0,#{ passport.userId },sysdate(),null,null
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO
+            `CEE_COLLEGE_ADMISSION`
+            (
+            <include refid="entityColumnList" />
+            )
+        VALUES
+        <foreach collection="list" item= "collegeAdmission" index ="index" separator=",">
+            (
+            #{ collegeAdmission.id },
+            
+            #{ collegeAdmission.collegeId },
+            #{ collegeAdmission.classType },
+            #{ collegeAdmission.year },
+            #{ collegeAdmission.hignestScore },
+            #{ collegeAdmission.averageScore },
+            #{ collegeAdmission.averageScoreDifference },
+            #{ collegeAdmission.submitLineDifference },
+            #{ collegeAdmission.lowestScore },
+            #{ collegeAdmission.admissionOffers },
+            #{ collegeAdmission.admissionTier },
+            0,0,#{ passport.userId },sysdate(),null,null
+            )
+        </foreach >
+    </insert>
+
+
+    <update id="delete">
+        UPDATE
+            `CEE_COLLEGE_ADMISSION`
+        SET
+            `IS_DELETED` = 1
+            ,`LAST_UPDATED_BY`=#{ passport.userId }
+            ,`LAST_UPDATE_TIME`=SYSDATE()
+        WHERE
+            `IS_DELETED`=0
+            AND `ID` = #{id}
+    </update>
+
+    <update id= "deleteBatch">
+        UPDATE
+            `CEE_COLLEGE_ADMISSION`
+        SET
+            `IS_DELETED` = 1
+            ,`LAST_UPDATED_BY`=#{ passport.userId }
+            ,`LAST_UPDATE_TIME`=SYSDATE()
+        WHERE
+            `IS_DELETED`=0
+            AND `ID` in
+        <foreach collection="list" item= "id" index ="index" open= "(" close =")" separator=",">
+            #{id}
+        </foreach >
+    </update >
+
+
+    <select id="getById" resultMap="collegeAdmissionPO">
+        SELECT
+        <include refid="entityColumnList" />
+        FROM
+            `CEE_COLLEGE_ADMISSION`
+        WHERE
+            `IS_DELETED` = 0
+            AND `ID` = #{id}
+    </select>
+
+    <select id="getListByIds" resultMap="collegeAdmissionPO">
+        SELECT
+            <include refid="entityColumnList" />
+        FROM
+            `CEE_COLLEGE_ADMISSION`
+        WHERE
+        `IS_DELETED` = 0
+        AND `ID` in
+        <foreach collection="list" item= "id" index ="index" open= "(" close =")" separator=",">
+            #{id}
+        </foreach >
+        
+    </select>
+
+    <select id="getAllList" resultMap="collegeAdmissionPO">
+        SELECT
+        <include refid="entityColumnList" />
+        FROM
+            `CEE_COLLEGE_ADMISSION`
+        WHERE
+            `IS_DELETED`=0
+    </select>
+
+    <select id="existById"  resultType="java.lang.Long">
+        SELECT
+            COUNT(*)
+        FROM
+            `CEE_COLLEGE_ADMISSION`
+        WHERE
+            `IS_DELETED`=0
+            AND `ID`=#{id}
+    </select>
+</mapper>
