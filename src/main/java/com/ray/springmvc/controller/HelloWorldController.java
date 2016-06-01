@@ -1,6 +1,7 @@
 package com.ray.springmvc.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/springmvc")
 public class HelloWorldController {
     @RequestMapping("/helloworld")
-    public String sayHello(){
+    public String sayHello(Model model){
         System.out.println("Hello World!");
+        model.addAttribute("msg", "Ray");
         return "springmvc/helloworld";
     }
 }
