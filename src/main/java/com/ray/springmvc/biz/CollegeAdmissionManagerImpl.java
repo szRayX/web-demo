@@ -33,6 +33,7 @@ public class CollegeAdmissionManagerImpl implements CollegeAdmissionManager {
     CollegeAdmissionMapperAuto dao;
 
     @Override
+    @Transactional(readOnly = true)
     public CollegeAdmissionPO get(Long id) {
         return dao.getById(id);
     }
