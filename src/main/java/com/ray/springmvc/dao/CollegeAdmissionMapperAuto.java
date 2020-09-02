@@ -1,15 +1,15 @@
 /**
  * @(#)CollegeAdmissionMapperAuto.java
  *
- * Copyright (c) 2014-2014  苏州犀牛网络科技有限公司 版权所有
- * xiniunet. All rights reserved.
+ * Copyright (c) 2014-2014   版权所有
+ * test. All rights reserved.
  *
  * This software is the confidential and proprietary
- * information of  xiniunet.
+ * information of  test.
  * ("Confidential Information"). You shall not disclose
  * such Confidential Information and shall use it only
  * in accordance with the terms of the contract agreement
- * you entered into with xiniunet.
+ * you entered into with test.
  */
 package com.ray.springmvc.dao;
 
