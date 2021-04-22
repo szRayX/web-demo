@@ -16,7 +16,7 @@
         <productionMode>false</productionMode>
 
         <spring.version>3.2.15.RELEASE</spring.version>
-        <mybatis.version>3.2.6</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <dozer.version>5.4.0</dozer.version>
         <log4j.version>1.2.17</log4j.version>
         <slf4j.version>1.7.21</slf4j.version>
